@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Invitation for Echa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #fdf6f0, #ffe6f0);
+      color: #333;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 600px;
+      padding: 2.5rem;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 2;
+      border: 2px solid #ffcad4;
+    }
+
+    h1, h2 {
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      color: #e63946;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    .button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      background-color: #ff6b81;
+      color: white;
+      cursor: pointer;
+      margin: 10px;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #ff4d6d;
+      transform: scale(1.05);
+    }
+
+    .no-btn {
+      position: relative;
+    }
+
+    .decor {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/clean-textile.png');
+      opacity: 0.08;
+      z-index: 1;
+      top: 0;
+      left: 0;
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff6b81;
+      animation: float 6s infinite;
+      font-size: 1.5rem;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ffd166;
+      border-radius: 50%;
+      animation: sparkle 3s infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+  </style>
+</head>
+<body>
+  <div class="decor"></div>
+  <div class="hearts" id="hearts"></div>
+  <div class="stars" id="stars"></div>
+  <div class="container" id="content">
+    <h1>Would you be willing to follow me on a little adventure?</h1>
+    <button class="button" onclick="nextStep()">Next</button>
+  </div>
+
+  <script>
+    let step = 0;
+
+    function nextStep() {
+      const content = document.getElementById('content');
+      content.innerHTML = `
+        <h2>Would you like to go out with me?</h2>
+        <button class="button" onclick="sayYes()">Yes</button>
+        <button class="button no-btn" id="noBtn" onmouseover="moveNoBtn()">No</button>
+      `;
+      step++;
+    }
+
+    function sayYes() {
+      const content = document.getElementById('content');
+      content.innerHTML = `
+        <h2>Yay! Here's the plan:</h2>
+        <p>🌸 Date: <strong>14 July 2024</strong></p>
+        <p>📍 Location: <strong>A very special place</strong></p>
+        <p>🕚 Time: <strong>11:00 AM - Until Whenever Feels Right</strong></p>
+        <p>Can't wait to see you there 💖</p>
+      `;
+    }
+
+    function moveNoBtn() {
+      const btn = document.getElementById('noBtn');
+      const randomX = Math.floor(Math.random() * 300) - 150;
+      const randomY = Math.floor(Math.random() * 300) - 150;
+      btn.style.position = 'absolute';
+      btn.style.left = `${randomX}px`;
+      btn.style.top = `${randomY}px`;
+    }
+
+    function createHearts() {
+      const heartsContainer = document.getElementById('hearts');
+      setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+        heartsContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }, 500);
+    }
+
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      for (let i = 0; i < 50; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDuration = (1 + Math.random() * 2) + 's';
+        starsContainer.appendChild(star);
+      }
+    }
+
+    createHearts();
+    createStars();
+  </script>
+</body>
+</html>
